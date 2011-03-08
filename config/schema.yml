@@ -1,0 +1,10 @@
+propel:
+  _attributes:
+    package: lib.model
+    defaultIdMethod: native
+  report:
+    _attributes: { phpName: Report }
+    id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { phpName: Name, type: VARCHAR, size: '255', required: true }
+    filename: { phpName: Filename, type: VARCHAR, size: '255', required: true }
+    exported: { phpName: Exported, type: TINYINT, size: '4', required: false }

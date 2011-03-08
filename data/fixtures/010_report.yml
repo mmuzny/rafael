@@ -1,0 +1,2 @@
+report:
+ vynosy: { name: Vynosy, filename: vynosy.pdf, exported: false }
