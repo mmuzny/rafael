@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Base static class for performing query and update operations on the 'report' table.
+ * Base static class for performing query and update operations on the 'car' table.
  *
  * 
  *
@@ -11,46 +11,43 @@
  *
  * @package    lib.model.om
  */
-abstract class BaseReportPeer {
+abstract class BaseCarPeer {
 
 	/** the default database name for this class */
 	const DATABASE_NAME = 'propel';
 
 	/** the table name for this class */
-	const TABLE_NAME = 'report';
+	const TABLE_NAME = 'car';
 
 	/** the related Propel class for this table */
-	const OM_CLASS = 'Report';
+	const OM_CLASS = 'Car';
 
 	/** A class that can be returned by this peer. */
-	const CLASS_DEFAULT = 'lib.model.Report';
+	const CLASS_DEFAULT = 'lib.model.Car';
 
 	/** the related TableMap class for this table */
-	const TM_CLASS = 'ReportTableMap';
+	const TM_CLASS = 'CarTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 4;
+	const NUM_COLUMNS = 3;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** the column name for the ID field */
-	const ID = 'report.ID';
+	const ID = 'car.ID';
 
 	/** the column name for the NAME field */
-	const NAME = 'report.NAME';
+	const NAME = 'car.NAME';
 
-	/** the column name for the FILENAME field */
-	const FILENAME = 'report.FILENAME';
-
-	/** the column name for the EXPORTED field */
-	const EXPORTED = 'report.EXPORTED';
+	/** the column name for the SPZ field */
+	const SPZ = 'car.SPZ';
 
 	/**
-	 * An identiy map to hold any loaded instances of Report objects.
+	 * An identiy map to hold any loaded instances of Car objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
 	 * queries.
-	 * @var        array Report[]
+	 * @var        array Car[]
 	 */
 	public static $instances = array();
 
@@ -69,11 +66,11 @@ abstract class BaseReportPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Filename', 'Exported', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'filename', 'exported', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::FILENAME, self::EXPORTED, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'filename', 'exported', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'SPZ', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'sPZ', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::SPZ, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'spz', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	/**
@@ -83,11 +80,11 @@ abstract class BaseReportPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Filename' => 2, 'Exported' => 3, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'filename' => 2, 'exported' => 3, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::FILENAME => 2, self::EXPORTED => 3, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'filename' => 2, 'exported' => 3, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'SPZ' => 2, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'sPZ' => 2, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::SPZ => 2, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'spz' => 2, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	/**
@@ -136,12 +133,12 @@ abstract class BaseReportPeer {
 	 *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
 	 * </code>
 	 * @param      string $alias The alias for the current table.
-	 * @param      string $column The column name for current table. (i.e. ReportPeer::COLUMN_NAME).
+	 * @param      string $column The column name for current table. (i.e. CarPeer::COLUMN_NAME).
 	 * @return     string
 	 */
 	public static function alias($alias, $column)
 	{
-		return str_replace(ReportPeer::TABLE_NAME.'.', $alias.'.', $column);
+		return str_replace(CarPeer::TABLE_NAME.'.', $alias.'.', $column);
 	}
 
 	/**
@@ -157,10 +154,9 @@ abstract class BaseReportPeer {
 	 */
 	public static function addSelectColumns(Criteria $criteria)
 	{
-		$criteria->addSelectColumn(ReportPeer::ID);
-		$criteria->addSelectColumn(ReportPeer::NAME);
-		$criteria->addSelectColumn(ReportPeer::FILENAME);
-		$criteria->addSelectColumn(ReportPeer::EXPORTED);
+		$criteria->addSelectColumn(CarPeer::ID);
+		$criteria->addSelectColumn(CarPeer::NAME);
+		$criteria->addSelectColumn(CarPeer::SPZ);
 	}
 
 	/**
@@ -179,26 +175,26 @@ abstract class BaseReportPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(ReportPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(CarPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			ReportPeer::addSelectColumns($criteria);
+			CarPeer::addSelectColumns($criteria);
 		}
 
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
 		$criteria->setDbName(self::DATABASE_NAME); // Set the correct dbName
 
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BaseReportPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BaseCarPeer', $criteria, $con);
 		}
 
 		// BasePeer returns a PDOStatement
@@ -217,7 +213,7 @@ abstract class BaseReportPeer {
 	 *
 	 * @param      Criteria $criteria object used to create the SELECT statement.
 	 * @param      PropelPDO $con
-	 * @return     Report
+	 * @return     Car
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -225,7 +221,7 @@ abstract class BaseReportPeer {
 	{
 		$critcopy = clone $criteria;
 		$critcopy->setLimit(1);
-		$objects = ReportPeer::doSelect($critcopy, $con);
+		$objects = CarPeer::doSelect($critcopy, $con);
 		if ($objects) {
 			return $objects[0];
 		}
@@ -242,7 +238,7 @@ abstract class BaseReportPeer {
 	 */
 	public static function doSelect(Criteria $criteria, PropelPDO $con = null)
 	{
-		return ReportPeer::populateObjects(ReportPeer::doSelectStmt($criteria, $con));
+		return CarPeer::populateObjects(CarPeer::doSelectStmt($criteria, $con));
 	}
 	/**
 	 * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -260,12 +256,12 @@ abstract class BaseReportPeer {
 	public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		if (!$criteria->hasSelectClause()) {
 			$criteria = clone $criteria;
-			ReportPeer::addSelectColumns($criteria);
+			CarPeer::addSelectColumns($criteria);
 		}
 
 		// Set the correct dbName
@@ -273,7 +269,7 @@ abstract class BaseReportPeer {
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BaseReportPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BaseCarPeer', $criteria, $con);
 		}
 
 
@@ -289,10 +285,10 @@ abstract class BaseReportPeer {
 	 * to the cache in order to ensure that the same objects are always returned by doSelect*()
 	 * and retrieveByPK*() calls.
 	 *
-	 * @param      Report $value A Report object.
+	 * @param      Car $value A Car object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(Report $obj, $key = null)
+	public static function addInstanceToPool(Car $obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -310,18 +306,18 @@ abstract class BaseReportPeer {
 	 * methods in your stub classes -- you may need to explicitly remove objects
 	 * from the cache in order to prevent returning objects that no longer exist.
 	 *
-	 * @param      mixed $value A Report object or a primary key value.
+	 * @param      mixed $value A Car object or a primary key value.
 	 */
 	public static function removeInstanceFromPool($value)
 	{
 		if (Propel::isInstancePoolingEnabled() && $value !== null) {
-			if (is_object($value) && $value instanceof Report) {
+			if (is_object($value) && $value instanceof Car) {
 				$key = (string) $value->getId();
 			} elseif (is_scalar($value)) {
 				// assume we've been passed a primary key
 				$key = (string) $value;
 			} else {
-				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Report object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Car object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
 				throw $e;
 			}
 
@@ -336,7 +332,7 @@ abstract class BaseReportPeer {
 	 * a multi-column primary key, a serialize()d version of the primary key will be returned.
 	 *
 	 * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-	 * @return     Report Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+	 * @return     Car Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
 	 * @see        getPrimaryKeyHash()
 	 */
 	public static function getInstanceFromPool($key)
@@ -360,7 +356,7 @@ abstract class BaseReportPeer {
 	}
 	
 	/**
-	 * Method to invalidate the instance pool of all tables related to report
+	 * Method to invalidate the instance pool of all tables related to car
 	 * by a foreign key with ON DELETE CASCADE
 	 */
 	public static function clearRelatedInstancePool()
@@ -398,11 +394,11 @@ abstract class BaseReportPeer {
 		$results = array();
 	
 		// set the class once to avoid overhead in the loop
-		$cls = ReportPeer::getOMClass(false);
+		$cls = CarPeer::getOMClass(false);
 		// populate the object(s)
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key = ReportPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj = ReportPeer::getInstanceFromPool($key))) {
+			$key = CarPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj = CarPeer::getInstanceFromPool($key))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://propel.phpdb.org/trac/ticket/509
 				// $obj->hydrate($row, 0, true); // rehydrate
@@ -411,7 +407,7 @@ abstract class BaseReportPeer {
 				$obj = new $cls();
 				$obj->hydrate($row);
 				$results[] = $obj;
-				ReportPeer::addInstanceToPool($obj, $key);
+				CarPeer::addInstanceToPool($obj, $key);
 			} // if key exists
 		}
 		$stmt->closeCursor();
@@ -434,10 +430,10 @@ abstract class BaseReportPeer {
 	 */
 	public static function buildTableMap()
 	{
-	  $dbMap = Propel::getDatabaseMap(BaseReportPeer::DATABASE_NAME);
-	  if (!$dbMap->hasTable(BaseReportPeer::TABLE_NAME))
+	  $dbMap = Propel::getDatabaseMap(BaseCarPeer::DATABASE_NAME);
+	  if (!$dbMap->hasTable(BaseCarPeer::TABLE_NAME))
 	  {
-	    $dbMap->addTableObject(new ReportTableMap());
+	    $dbMap->addTableObject(new CarTableMap());
 	  }
 	}
 
@@ -454,13 +450,13 @@ abstract class BaseReportPeer {
 	 */
 	public static function getOMClass($withPrefix = true)
 	{
-		return $withPrefix ? ReportPeer::CLASS_DEFAULT : ReportPeer::OM_CLASS;
+		return $withPrefix ? CarPeer::CLASS_DEFAULT : CarPeer::OM_CLASS;
 	}
 
 	/**
-	 * Method perform an INSERT on the database, given a Report or Criteria object.
+	 * Method perform an INSERT on the database, given a Car or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or Report object containing data that is used to create the INSERT statement.
+	 * @param      mixed $values Criteria or Car object containing data that is used to create the INSERT statement.
 	 * @param      PropelPDO $con the PropelPDO connection to use
 	 * @return     mixed The new primary key.
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -469,26 +465,26 @@ abstract class BaseReportPeer {
 	public static function doInsert($values, PropelPDO $con = null)
 	{
     // symfony_behaviors behavior
-    foreach (sfMixer::getCallables('BaseReportPeer:doInsert:pre') as $sf_hook)
+    foreach (sfMixer::getCallables('BaseCarPeer:doInsert:pre') as $sf_hook)
     {
-      if (false !== $sf_hook_retval = call_user_func($sf_hook, 'BaseReportPeer', $values, $con))
+      if (false !== $sf_hook_retval = call_user_func($sf_hook, 'BaseCarPeer', $values, $con))
       {
         return $sf_hook_retval;
       }
     }
 
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 		} else {
-			$criteria = $values->buildCriteria(); // build Criteria from Report object
+			$criteria = $values->buildCriteria(); // build Criteria from Car object
 		}
 
-		if ($criteria->containsKey(ReportPeer::ID) && $criteria->keyContainsValue(ReportPeer::ID) ) {
-			throw new PropelException('Cannot insert a value for auto-increment primary key ('.ReportPeer::ID.')');
+		if ($criteria->containsKey(CarPeer::ID) && $criteria->keyContainsValue(CarPeer::ID) ) {
+			throw new PropelException('Cannot insert a value for auto-increment primary key ('.CarPeer::ID.')');
 		}
 
 
@@ -507,18 +503,18 @@ abstract class BaseReportPeer {
 		}
 
     // symfony_behaviors behavior
-    foreach (sfMixer::getCallables('BaseReportPeer:doInsert:post') as $sf_hook)
+    foreach (sfMixer::getCallables('BaseCarPeer:doInsert:post') as $sf_hook)
     {
-      call_user_func($sf_hook, 'BaseReportPeer', $values, $con, $pk);
+      call_user_func($sf_hook, 'BaseCarPeer', $values, $con, $pk);
     }
 
 		return $pk;
 	}
 
 	/**
-	 * Method perform an UPDATE on the database, given a Report or Criteria object.
+	 * Method perform an UPDATE on the database, given a Car or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or Report object containing data that is used to create the UPDATE statement.
+	 * @param      mixed $values Criteria or Car object containing data that is used to create the UPDATE statement.
 	 * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -527,16 +523,16 @@ abstract class BaseReportPeer {
 	public static function doUpdate($values, PropelPDO $con = null)
 	{
     // symfony_behaviors behavior
-    foreach (sfMixer::getCallables('BaseReportPeer:doUpdate:pre') as $sf_hook)
+    foreach (sfMixer::getCallables('BaseCarPeer:doUpdate:pre') as $sf_hook)
     {
-      if (false !== $sf_hook_retval = call_user_func($sf_hook, 'BaseReportPeer', $values, $con))
+      if (false !== $sf_hook_retval = call_user_func($sf_hook, 'BaseCarPeer', $values, $con))
       {
         return $sf_hook_retval;
       }
     }
 
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		$selectCriteria = new Criteria(self::DATABASE_NAME);
@@ -544,10 +540,10 @@ abstract class BaseReportPeer {
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 
-			$comparison = $criteria->getComparison(ReportPeer::ID);
-			$selectCriteria->add(ReportPeer::ID, $criteria->remove(ReportPeer::ID), $comparison);
+			$comparison = $criteria->getComparison(CarPeer::ID);
+			$selectCriteria->add(CarPeer::ID, $criteria->remove(CarPeer::ID), $comparison);
 
-		} else { // $values is Report object
+		} else { // $values is Car object
 			$criteria = $values->buildCriteria(); // gets full criteria
 			$selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
 		}
@@ -558,35 +554,35 @@ abstract class BaseReportPeer {
 		$ret = BasePeer::doUpdate($selectCriteria, $criteria, $con);
 
     // symfony_behaviors behavior
-    foreach (sfMixer::getCallables('BaseReportPeer:doUpdate:post') as $sf_hook)
+    foreach (sfMixer::getCallables('BaseCarPeer:doUpdate:post') as $sf_hook)
     {
-      call_user_func($sf_hook, 'BaseReportPeer', $values, $con, $ret);
+      call_user_func($sf_hook, 'BaseCarPeer', $values, $con, $ret);
     }
 
     return $ret;
 	}
 
 	/**
-	 * Method to DELETE all rows from the report table.
+	 * Method to DELETE all rows from the car table.
 	 *
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 */
 	public static function doDeleteAll($con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		$affectedRows = 0; // initialize var to track total num of affected rows
 		try {
 			// use transaction because $criteria could contain info
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
-			$affectedRows += BasePeer::doDeleteAll(ReportPeer::TABLE_NAME, $con);
+			$affectedRows += BasePeer::doDeleteAll(CarPeer::TABLE_NAME, $con);
 			// Because this db requires some delete cascade/set null emulation, we have to
 			// clear the cached instance *after* the emulation has happened (since
 			// instances get re-added by the select statement contained therein).
-			ReportPeer::clearInstancePool();
-			ReportPeer::clearRelatedInstancePool();
+			CarPeer::clearInstancePool();
+			CarPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -596,9 +592,9 @@ abstract class BaseReportPeer {
 	}
 
 	/**
-	 * Method perform a DELETE on the database, given a Report or Criteria object OR a primary key value.
+	 * Method perform a DELETE on the database, given a Car or Criteria object OR a primary key value.
 	 *
-	 * @param      mixed $values Criteria or Report object or primary key or array of primary keys
+	 * @param      mixed $values Criteria or Car object or primary key or array of primary keys
 	 *              which is used to create the DELETE statement
 	 * @param      PropelPDO $con the connection to use
 	 * @return     int 	The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -609,27 +605,27 @@ abstract class BaseReportPeer {
 	 public static function doDelete($values, PropelPDO $con = null)
 	 {
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			// invalidate the cache for all objects of this type, since we have no
 			// way of knowing (without running a query) what objects should be invalidated
 			// from the cache based on this Criteria.
-			ReportPeer::clearInstancePool();
+			CarPeer::clearInstancePool();
 			// rename for clarity
 			$criteria = clone $values;
-		} elseif ($values instanceof Report) { // it's a model object
+		} elseif ($values instanceof Car) { // it's a model object
 			// invalidate the cache for this single object
-			ReportPeer::removeInstanceFromPool($values);
+			CarPeer::removeInstanceFromPool($values);
 			// create criteria based on pk values
 			$criteria = $values->buildPkeyCriteria();
 		} else { // it's a primary key, or an array of pks
 			$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(ReportPeer::ID, (array) $values, Criteria::IN);
+			$criteria->add(CarPeer::ID, (array) $values, Criteria::IN);
 			// invalidate the cache for this object(s)
 			foreach ((array) $values as $singleval) {
-				ReportPeer::removeInstanceFromPool($singleval);
+				CarPeer::removeInstanceFromPool($singleval);
 			}
 		}
 
@@ -644,7 +640,7 @@ abstract class BaseReportPeer {
 			$con->beginTransaction();
 			
 			$affectedRows += BasePeer::doDelete($criteria, $con);
-			ReportPeer::clearRelatedInstancePool();
+			CarPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -654,24 +650,24 @@ abstract class BaseReportPeer {
 	}
 
 	/**
-	 * Validates all modified columns of given Report object.
+	 * Validates all modified columns of given Car object.
 	 * If parameter $columns is either a single column name or an array of column names
 	 * than only those columns are validated.
 	 *
 	 * NOTICE: This does not apply to primary or foreign keys for now.
 	 *
-	 * @param      Report $obj The object to validate.
+	 * @param      Car $obj The object to validate.
 	 * @param      mixed $cols Column name or array of column names.
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(Report $obj, $cols = null)
+	public static function doValidate(Car $obj, $cols = null)
 	{
 		$columns = array();
 
 		if ($cols) {
-			$dbMap = Propel::getDatabaseMap(ReportPeer::DATABASE_NAME);
-			$tableMap = $dbMap->getTable(ReportPeer::TABLE_NAME);
+			$dbMap = Propel::getDatabaseMap(CarPeer::DATABASE_NAME);
+			$tableMap = $dbMap->getTable(CarPeer::TABLE_NAME);
 
 			if (! is_array($cols)) {
 				$cols = array($cols);
@@ -687,7 +683,7 @@ abstract class BaseReportPeer {
 
 		}
 
-		return BasePeer::doValidate(ReportPeer::DATABASE_NAME, ReportPeer::TABLE_NAME, $columns);
+		return BasePeer::doValidate(CarPeer::DATABASE_NAME, CarPeer::TABLE_NAME, $columns);
 	}
 
 	/**
@@ -695,23 +691,23 @@ abstract class BaseReportPeer {
 	 *
 	 * @param      int $pk the primary key.
 	 * @param      PropelPDO $con the connection to use
-	 * @return     Report
+	 * @return     Car
 	 */
 	public static function retrieveByPK($pk, PropelPDO $con = null)
 	{
 
-		if (null !== ($obj = ReportPeer::getInstanceFromPool((string) $pk))) {
+		if (null !== ($obj = CarPeer::getInstanceFromPool((string) $pk))) {
 			return $obj;
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria = new Criteria(ReportPeer::DATABASE_NAME);
-		$criteria->add(ReportPeer::ID, $pk);
+		$criteria = new Criteria(CarPeer::DATABASE_NAME);
+		$criteria->add(CarPeer::ID, $pk);
 
-		$v = ReportPeer::doSelect($criteria, $con);
+		$v = CarPeer::doSelect($criteria, $con);
 
 		return !empty($v) > 0 ? $v[0] : null;
 	}
@@ -727,16 +723,16 @@ abstract class BaseReportPeer {
 	public static function retrieveByPKs($pks, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		$objs = null;
 		if (empty($pks)) {
 			$objs = array();
 		} else {
-			$criteria = new Criteria(ReportPeer::DATABASE_NAME);
-			$criteria->add(ReportPeer::ID, $pks, Criteria::IN);
-			$objs = ReportPeer::doSelect($criteria, $con);
+			$criteria = new Criteria(CarPeer::DATABASE_NAME);
+			$criteria->add(CarPeer::ID, $pks, Criteria::IN);
+			$objs = CarPeer::doSelect($criteria, $con);
 		}
 		return $objs;
 	}
@@ -768,15 +764,15 @@ abstract class BaseReportPeer {
 	{
 	  if (preg_match('/^do(Select|Count)(Join(All(Except)?)?|Stmt)?/', $method, $match))
 	  {
-	    return sprintf('BaseReportPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
+	    return sprintf('BaseCarPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
 	  }
 	
 	  throw new LogicException(sprintf('Unrecognized function "%s"', $method));
 	}
 
-} // BaseReportPeer
+} // BaseCarPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BaseReportPeer::buildTableMap();
+BaseCarPeer::buildTableMap();
 

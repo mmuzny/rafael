@@ -22,10 +22,16 @@
 background:url(<?php echo image_path('reporty.png') ?>) no-repeat;
 }
 .tab2{
-top:152px;
+top:150px;
 }
 .tab2 .handle{
 background:url(<?php echo image_path('crontab.png') ?>) no-repeat;
+}
+.tab3{
+top:410px;
+}
+.tab3 .handle{
+background:url(<?php echo image_path('auta.png') ?>) no-repeat;
 }
 
 
@@ -111,6 +117,12 @@ background:url(<?php echo image_path('crontab.png') ?>) no-repeat;
 <div class="slide-out-div tab2">
             <a class="handle" href="">Content</a>
         <a href="<?php echo url_for('crontab/index') ?>">Editovat Crontab</a><br/><br/>
+        </div>     
+
+<div class="slide-out-div tab3">
+            <a class="handle" href="">Content</a>
+        <a href="<?php echo url_for('cars/index') ?>">Vozový park</a><br/><br/>
+        <a href="<?php echo url_for('cars/new') ?>">Přidat auto</a><p><p>
         </div>     
 
   </body>

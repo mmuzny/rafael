@@ -1,0 +1,13 @@
+Report:
+  Report_15:
+    name: '03 Vynosy dle typu'
+    filename: 03_Vynosy_dle_typu.pdf
+  Report_16:
+    name: '04 Naklady_dle typu'
+    filename: 04_Naklady_dle_typu.pdf
+  Report_17:
+    name: '05 Naklady dle casu'
+    filename: 05_Naklady_dle_casu.pdf
+  Report_18:
+    name: '03 BLeee'
+    filename: 03_blee.pdf

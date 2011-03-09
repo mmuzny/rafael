@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Base class that represents a row from the 'report' table.
+ * Base class that represents a row from the 'car' table.
  *
  * 
  *
@@ -11,14 +11,14 @@
  *
  * @package    lib.model.om
  */
-abstract class BaseReport extends BaseObject  implements Persistent {
+abstract class BaseCar extends BaseObject  implements Persistent {
 
 
 	/**
 	 * The Peer class.
 	 * Instance provides a convenient way of calling static methods on a class
 	 * that calling code may not be able to identify.
-	 * @var        ReportPeer
+	 * @var        CarPeer
 	 */
 	protected static $peer;
 
@@ -35,16 +35,10 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	protected $name;
 
 	/**
-	 * The value for the filename field.
+	 * The value for the spz field.
 	 * @var        string
 	 */
-	protected $filename;
-
-	/**
-	 * The value for the exported field.
-	 * @var        int
-	 */
-	protected $exported;
+	protected $spz;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -62,7 +56,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 
 	// symfony behavior
 	
-	const PEER = 'ReportPeer';
+	const PEER = 'CarPeer';
 
 	/**
 	 * Get the [id] column value.
@@ -85,30 +79,20 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [filename] column value.
+	 * Get the [spz] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getFilename()
+	public function getSPZ()
 	{
-		return $this->filename;
-	}
-
-	/**
-	 * Get the [exported] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getExported()
-	{
-		return $this->exported;
+		return $this->spz;
 	}
 
 	/**
 	 * Set the value of [id] column.
 	 * 
 	 * @param      int $v new value
-	 * @return     Report The current object (for fluent API support)
+	 * @return     Car The current object (for fluent API support)
 	 */
 	public function setId($v)
 	{
@@ -118,7 +102,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 
 		if ($this->id !== $v) {
 			$this->id = $v;
-			$this->modifiedColumns[] = ReportPeer::ID;
+			$this->modifiedColumns[] = CarPeer::ID;
 		}
 
 		return $this;
@@ -128,7 +112,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 * Set the value of [name] column.
 	 * 
 	 * @param      string $v new value
-	 * @return     Report The current object (for fluent API support)
+	 * @return     Car The current object (for fluent API support)
 	 */
 	public function setName($v)
 	{
@@ -138,51 +122,31 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 
 		if ($this->name !== $v) {
 			$this->name = $v;
-			$this->modifiedColumns[] = ReportPeer::NAME;
+			$this->modifiedColumns[] = CarPeer::NAME;
 		}
 
 		return $this;
 	} // setName()
 
 	/**
-	 * Set the value of [filename] column.
+	 * Set the value of [spz] column.
 	 * 
 	 * @param      string $v new value
-	 * @return     Report The current object (for fluent API support)
+	 * @return     Car The current object (for fluent API support)
 	 */
-	public function setFilename($v)
+	public function setSPZ($v)
 	{
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->filename !== $v) {
-			$this->filename = $v;
-			$this->modifiedColumns[] = ReportPeer::FILENAME;
+		if ($this->spz !== $v) {
+			$this->spz = $v;
+			$this->modifiedColumns[] = CarPeer::SPZ;
 		}
 
 		return $this;
-	} // setFilename()
-
-	/**
-	 * Set the value of [exported] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     Report The current object (for fluent API support)
-	 */
-	public function setExported($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->exported !== $v) {
-			$this->exported = $v;
-			$this->modifiedColumns[] = ReportPeer::EXPORTED;
-		}
-
-		return $this;
-	} // setExported()
+	} // setSPZ()
 
 	/**
 	 * Indicates whether the columns in this object are only set to default values.
@@ -218,8 +182,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
 			$this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-			$this->filename = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-			$this->exported = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+			$this->spz = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -229,10 +192,10 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 			}
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 4; // 4 = ReportPeer::NUM_COLUMNS - ReportPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 3; // 3 = CarPeer::NUM_COLUMNS - CarPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
-			throw new PropelException("Error populating Report object", $e);
+			throw new PropelException("Error populating Car object", $e);
 		}
 	}
 
@@ -275,13 +238,13 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		// We don't need to alter the object instance pool; we're just modifying this instance
 		// already in the pool.
 
-		$stmt = ReportPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+		$stmt = CarPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
 		$row = $stmt->fetch(PDO::FETCH_NUM);
 		$stmt->closeCursor();
 		if (!$row) {
@@ -310,14 +273,14 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
 		try {
 			$ret = $this->preDelete($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseReport:delete:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseCar:delete:pre') as $callable)
 			{
 			  if (call_user_func($callable, $this, $con))
 			  {
@@ -328,10 +291,10 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 			}
 
 			if ($ret) {
-				ReportPeer::doDelete($this, $con);
+				CarPeer::doDelete($this, $con);
 				$this->postDelete($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseReport:delete:post') as $callable)
+				foreach (sfMixer::getCallables('BaseCar:delete:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con);
 				}
@@ -367,7 +330,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(CarPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
@@ -375,7 +338,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 		try {
 			$ret = $this->preSave($con);
 			// symfony_behaviors behavior
-			foreach (sfMixer::getCallables('BaseReport:save:pre') as $callable)
+			foreach (sfMixer::getCallables('BaseCar:save:pre') as $callable)
 			{
 			  if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
 			  {
@@ -399,12 +362,12 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 				}
 				$this->postSave($con);
 				// symfony_behaviors behavior
-				foreach (sfMixer::getCallables('BaseReport:save:post') as $callable)
+				foreach (sfMixer::getCallables('BaseCar:save:post') as $callable)
 				{
 				  call_user_func($callable, $this, $con, $affectedRows);
 				}
 
-				ReportPeer::addInstanceToPool($this);
+				CarPeer::addInstanceToPool($this);
 			} else {
 				$affectedRows = 0;
 			}
@@ -434,13 +397,13 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 			$this->alreadyInSave = true;
 
 			if ($this->isNew() ) {
-				$this->modifiedColumns[] = ReportPeer::ID;
+				$this->modifiedColumns[] = CarPeer::ID;
 			}
 
 			// If this object has been modified, then save it to the database.
 			if ($this->isModified()) {
 				if ($this->isNew()) {
-					$pk = ReportPeer::doInsert($this, $con);
+					$pk = CarPeer::doInsert($this, $con);
 					$affectedRows += 1; // we are assuming that there is only 1 row per doInsert() which
 										 // should always be true here (even though technically
 										 // BasePeer::doInsert() can insert multiple rows).
@@ -449,7 +412,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 
 					$this->setNew(false);
 				} else {
-					$affectedRows += ReportPeer::doUpdate($this, $con);
+					$affectedRows += CarPeer::doUpdate($this, $con);
 				}
 
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
@@ -521,7 +484,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 			$failureMap = array();
 
 
-			if (($retval = ReportPeer::doValidate($this, $columns)) !== true) {
+			if (($retval = CarPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
@@ -544,7 +507,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 */
 	public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = ReportPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = CarPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		$field = $this->getByPosition($pos);
 		return $field;
 	}
@@ -566,10 +529,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 				return $this->getName();
 				break;
 			case 2:
-				return $this->getFilename();
-				break;
-			case 3:
-				return $this->getExported();
+				return $this->getSPZ();
 				break;
 			default:
 				return null;
@@ -590,12 +550,11 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 */
 	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true)
 	{
-		$keys = ReportPeer::getFieldNames($keyType);
+		$keys = CarPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getName(),
-			$keys[2] => $this->getFilename(),
-			$keys[3] => $this->getExported(),
+			$keys[2] => $this->getSPZ(),
 		);
 		return $result;
 	}
@@ -612,7 +571,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 */
 	public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = ReportPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = CarPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		return $this->setByPosition($pos, $value);
 	}
 
@@ -634,10 +593,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 				$this->setName($value);
 				break;
 			case 2:
-				$this->setFilename($value);
-				break;
-			case 3:
-				$this->setExported($value);
+				$this->setSPZ($value);
 				break;
 		} // switch()
 	}
@@ -661,12 +617,11 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 */
 	public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
 	{
-		$keys = ReportPeer::getFieldNames($keyType);
+		$keys = CarPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setFilename($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setExported($arr[$keys[3]]);
+		if (array_key_exists($keys[2], $arr)) $this->setSPZ($arr[$keys[2]]);
 	}
 
 	/**
@@ -676,12 +631,11 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 */
 	public function buildCriteria()
 	{
-		$criteria = new Criteria(ReportPeer::DATABASE_NAME);
+		$criteria = new Criteria(CarPeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(ReportPeer::ID)) $criteria->add(ReportPeer::ID, $this->id);
-		if ($this->isColumnModified(ReportPeer::NAME)) $criteria->add(ReportPeer::NAME, $this->name);
-		if ($this->isColumnModified(ReportPeer::FILENAME)) $criteria->add(ReportPeer::FILENAME, $this->filename);
-		if ($this->isColumnModified(ReportPeer::EXPORTED)) $criteria->add(ReportPeer::EXPORTED, $this->exported);
+		if ($this->isColumnModified(CarPeer::ID)) $criteria->add(CarPeer::ID, $this->id);
+		if ($this->isColumnModified(CarPeer::NAME)) $criteria->add(CarPeer::NAME, $this->name);
+		if ($this->isColumnModified(CarPeer::SPZ)) $criteria->add(CarPeer::SPZ, $this->spz);
 
 		return $criteria;
 	}
@@ -696,9 +650,9 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 */
 	public function buildPkeyCriteria()
 	{
-		$criteria = new Criteria(ReportPeer::DATABASE_NAME);
+		$criteria = new Criteria(CarPeer::DATABASE_NAME);
 
-		$criteria->add(ReportPeer::ID, $this->id);
+		$criteria->add(CarPeer::ID, $this->id);
 
 		return $criteria;
 	}
@@ -729,7 +683,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 * If desired, this method can also make copies of all associated (fkey referrers)
 	 * objects.
 	 *
-	 * @param      object $copyObj An object of Report (or compatible) type.
+	 * @param      object $copyObj An object of Car (or compatible) type.
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
 	 * @throws     PropelException
 	 */
@@ -738,9 +692,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 
 		$copyObj->setName($this->name);
 
-		$copyObj->setFilename($this->filename);
-
-		$copyObj->setExported($this->exported);
+		$copyObj->setSPZ($this->spz);
 
 
 		$copyObj->setNew(true);
@@ -758,7 +710,7 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 * objects.
 	 *
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-	 * @return     Report Clone of current object.
+	 * @return     Car Clone of current object.
 	 * @throws     PropelException
 	 */
 	public function copy($deepCopy = false)
@@ -777,12 +729,12 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 * same instance for all member of this class. The method could therefore
 	 * be static, but this would prevent one from overriding the behavior.
 	 *
-	 * @return     ReportPeer
+	 * @return     CarPeer
 	 */
 	public function getPeer()
 	{
 		if (self::$peer === null) {
-			self::$peer = new ReportPeer();
+			self::$peer = new CarPeer();
 		}
 		return self::$peer;
 	}
@@ -810,9 +762,9 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	 */
 	public function __call($method, $arguments)
 	{
-	  if (!$callable = sfMixer::getCallable('BaseReport:'.$method))
+	  if (!$callable = sfMixer::getCallable('BaseCar:'.$method))
 	  {
-	    throw new sfException(sprintf('Call to undefined method BaseReport::%s', $method));
+	    throw new sfException(sprintf('Call to undefined method BaseCar::%s', $method));
 	  }
 	
 	  array_unshift($arguments, $this);
@@ -820,4 +772,4 @@ abstract class BaseReport extends BaseObject  implements Persistent {
 	  return call_user_func_array($callable, $arguments);
 	}
 
-} // BaseReport
+} // BaseCar
