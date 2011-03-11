@@ -13,3 +13,7 @@ propel:
     id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
     name: { phpName: Name, type: VARCHAR, size: '255', required: true }
     spz: { phpName: SPZ, type: VARCHAR, size: '255', required: true }
+    factory: { phpName: Factory, type: VARCHAR, size: '255', required: true }
+    type: { phpName: Type, type: VARCHAR, size: '255', required: true }
+    year: { phpName: Year, type: VARCHAR, size: '255', required: true }
+    assignment: { phpName: Assignment, type: VARCHAR, size: '255', required: true }

@@ -1,13 +1,21 @@
+Car:
+  Car_1:
+    name: RZP
+    spz: A3-023
+    factory: ''
+    type: ''
+    year: ''
+    assignment: ''
 Report:
-  Report_15:
+  Report_3:
     name: '03 Vynosy dle typu'
     filename: 03_Vynosy_dle_typu.pdf
-  Report_16:
+  Report_4:
     name: '04 Naklady_dle typu'
     filename: 04_Naklady_dle_typu.pdf
-  Report_17:
+  Report_5:
     name: '05 Naklady dle casu'
     filename: 05_Naklady_dle_casu.pdf
-  Report_18:
+  Report_6:
     name: '03 BLeee'
     filename: 03_blee.pdf

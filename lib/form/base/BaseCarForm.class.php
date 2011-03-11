@@ -14,15 +14,23 @@ abstract class BaseCarForm extends BaseFormPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'id'   => new sfWidgetFormInputHidden(),
-      'name' => new sfWidgetFormInputText(),
-      'spz'  => new sfWidgetFormInputText(),
+      'id'         => new sfWidgetFormInputHidden(),
+      'name'       => new sfWidgetFormInputText(),
+      'spz'        => new sfWidgetFormInputText(),
+      'factory'    => new sfWidgetFormInputText(),
+      'type'       => new sfWidgetFormInputText(),
+      'year'       => new sfWidgetFormInputText(),
+      'assignment' => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
-      'id'   => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
-      'name' => new sfValidatorString(array('max_length' => 255)),
-      'spz'  => new sfValidatorString(array('max_length' => 255)),
+      'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
+      'name'       => new sfValidatorString(array('max_length' => 255)),
+      'spz'        => new sfValidatorString(array('max_length' => 255)),
+      'factory'    => new sfValidatorString(array('max_length' => 255)),
+      'type'       => new sfValidatorString(array('max_length' => 255)),
+      'year'       => new sfValidatorString(array('max_length' => 255)),
+      'assignment' => new sfValidatorString(array('max_length' => 255)),
     ));
 
     $this->widgetSchema->setNameFormat('car[%s]');

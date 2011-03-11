@@ -31,6 +31,10 @@ CREATE TABLE `car`
 	`id` INTEGER(11)  NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255)  NOT NULL,
 	`spz` VARCHAR(255)  NOT NULL,
+	`factory` VARCHAR(255)  NOT NULL,
+	`type` VARCHAR(255)  NOT NULL,
+	`year` VARCHAR(255)  NOT NULL,
+	`assignment` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 

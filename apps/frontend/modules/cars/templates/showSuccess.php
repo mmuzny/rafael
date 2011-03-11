@@ -12,6 +12,22 @@
       <th>Spz:</th>
       <td><?php echo $Car->getSPZ() ?></td>
     </tr>
+    <tr>
+      <th>Factory:</th>
+      <td><?php echo $Car->getFactory() ?></td>
+    </tr>
+    <tr>
+      <th>Type:</th>
+      <td><?php echo $Car->getType() ?></td>
+    </tr>
+    <tr>
+      <th>Year:</th>
+      <td><?php echo $Car->getYear() ?></td>
+    </tr>
+    <tr>
+      <th>Assignment:</th>
+      <td><?php echo $Car->getAssignment() ?></td>
+    </tr>
   </tbody>
 </table>
 
