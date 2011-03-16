@@ -1,0 +1,10 @@
+#sub_header .post div a
+{
+  display: block;
+  background: url(../images/empty.jpg);
+  text-indent: -9999px;
+  width: 150px;
+  height: 48px;
+  !important
+}
+

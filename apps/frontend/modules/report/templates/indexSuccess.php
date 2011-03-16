@@ -7,7 +7,7 @@
 <div id="jobs">
  <div class="category_vary">
   <div class="category">
-        <h1><?php echo sfConfig::get('app_organization', $default_value)?></h1>
+        <h1><?php echo sfConfig::get('app_organization', $default_value)?> - Přehled reportů</h1>
        </div>
 
   <table class="jobs">

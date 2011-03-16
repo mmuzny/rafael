@@ -2,11 +2,12 @@
 <?php use_stylesheet('jobs.css') ?>
 
 <?php use_stylesheet('jobs.css') ?>
+<?php use_stylesheet('crontab-mods.css') ?>
  
 <div id="jobs">
  <div class="category_vary">
   <div class="category">
-        <h1><?php echo sfConfig::get('app_organization', $default_value)?></h1>
+        <h1><?php echo sfConfig::get('app_organization', $default_value)?> - Crontab</h1>
        </div>
 
   <table class="jobs">
