@@ -156,6 +156,8 @@ foreach($listing as $val) {
       $base_dir=sfConfig::get('app_crontab_folder', $default_value);
 
       $handle = fopen($base_dir.$request->getPostParameter('report[filename]', null),'w');
+
+      fwrite($handle, "* * * * * php export.php ".$request->getPostParameter('report[filename]', null));
  
       fclose($handle);
       

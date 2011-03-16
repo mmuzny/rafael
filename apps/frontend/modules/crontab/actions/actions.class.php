@@ -63,8 +63,33 @@ $command=$request->getPostParameter('command',null);
 
 fwrite($handle, $minute." ".$hour." ".$day." ".$month." ".$day_of_week." ".$command);
 
-$this->redirect('crontab/index');
+$this->redirect('crontab/generate');
 }
+
+public function executeGenerate(sfWebRequest $request)
+{
+
+$base_dir=sfConfig::get('app_crontab_folder', $default_value);
+		
+$cron_handle = fopen($base_dir."../crontab",'w');
+
+$myDirectory = opendir($base_dir);
+
+while($entryName = readdir($myDirectory)) {
+	$dirArray[] = $entryName;
+}
+
+closedir($myDirectory);
+$indexCount	= count($dirArray);
+sort($dirArray);
+for($index=0; $index < $indexCount; $index++) {
+        if (substr("$dirArray[$index]", 0, 1) != "."){
+		$handle = fopen($base_dir.$dirArray[$index],'r');
+		$contents = fread($handle, filesize($base_dir.$dirArray[$index]));
+		fwrite($cron_handle,$contents."\n"); 	
+}
+}
+$this->redirect('crontab/index');}
 
 public function executeEdit(sfWebRequest $request)
 {

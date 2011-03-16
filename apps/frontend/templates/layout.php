@@ -119,7 +119,8 @@ background:url(<?php echo image_path('auta.png') ?>) no-repeat;
 
 <div class="slide-out-div tab2">
             <a class="handle" href="">Content</a>
-        <a href="<?php echo url_for('crontab/index') ?>">Editovat Crontab</a><br/><br/>
+        <a href="<?php echo url_for('crontab/index') ?>">Editovat crontab</a><br/><br/>
+        <a href="<?php echo url_for('crontab/generate') ?>">Generovat crontab</a><br/><br/>
         </div>     
 
 <div class="slide-out-div tab3">
