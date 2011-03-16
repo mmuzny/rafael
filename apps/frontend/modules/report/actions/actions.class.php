@@ -151,16 +151,27 @@ foreach($listing as $val) {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
     {
-      $Report = $form->save();
 	
       $base_dir=sfConfig::get('app_crontab_folder', $default_value);
+
+      if(!file_exists($base_dir.$request->getPostParameter('report[filename]', null))){
 
       $handle = fopen($base_dir.$request->getPostParameter('report[filename]', null),'w');
 
       fwrite($handle, "* * * * * php export.php ".$request->getPostParameter('report[filename]', null));
  
       fclose($handle);
-      
+
+      $Rep = ReportPeer::retrieveByPk($request->getPostParameter('report[id]', null));
+
+      $filename=$base_dir.$Rep->getFilename();
+      unlink($filename);
+        
+} else {
+       
+}
+     
+      $Report = $form->save();
       $this->redirect('report/edit?id='.$Report->getId());
     }
   }
