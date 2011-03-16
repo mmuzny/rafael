@@ -3,6 +3,7 @@
 
 <?php use_stylesheet('jobs.css') ?>
  
+<?php use_stylesheet('crontab-mods.css') ?>
 <div id="jobs">
  <div class="category_vary">
   <div class="category">

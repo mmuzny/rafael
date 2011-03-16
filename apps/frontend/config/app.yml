@@ -10,4 +10,5 @@ all:
   root: /home/mirek/knowledgetree/
  sf_guard_plugin:
   signin_form:    LoginForm
+ max_reports_on_page: 5
 

@@ -11,7 +11,14 @@ class reportActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request)
   {
-    $this->Reports = ReportPeer::doSelect(new Criteria());
+   // $this->Reports = ReportPeer::doSelect(new Criteria());
+   $this->pager = new sfPropelPager(
+    'Report',5);
+ //   sfConfig::get('max_reports_on_page')
+ // );
+ // $this->pager->setCriteria($this->category->getActiveJobsCriteria());
+  $this->pager->setPage($request->getParameter('page', 1));
+  $this->pager->init();
 
   }
 
