@@ -1,0 +1,14 @@
+index:
+  meta:
+    name: index
+
+  models:
+    report:
+      fields:
+        pk: id
+        AN_ATTRIBUTE:
+          boost: 1.5
+          method: ACCESSOR_METHOD
+        ANOTHER_ATTRIBUTE: ~
+        route: ~
+#        category: THE_CATEGORY
