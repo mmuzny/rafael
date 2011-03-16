@@ -86,6 +86,9 @@ for($index=0; $index < $indexCount; $index++) {
         if (substr("$dirArray[$index]", 0, 1) != "."){
 		$handle = fopen($base_dir.$dirArray[$index],'r');
 		$contents = fread($handle, filesize($base_dir.$dirArray[$index]));
+    		list( $cron_minute, $cron_hour, $cron_day, $cron_month, $cron_day_of_week, $command ) = split( " ", $contents );
+		if ($cron_hour-3<0) {$cron_hour=($cron_hour-3)+24;} else {$cron_hour=$cron_hour-3;}
+		fwrite($cron_handle,$cron_minute." ".$cron_hour." ".$cron_day." ".$cron_month." ".$cron_day_of_week." php sendMail.php ".$dirArray[$index]."\n");
 		fwrite($cron_handle,$contents."\n"); 	
 }
 }
