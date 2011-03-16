@@ -12,6 +12,7 @@ class reportActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->Reports = ReportPeer::doSelect(new Criteria());
+
   }
 
   public function executeSearch(sfWebRequest $request)

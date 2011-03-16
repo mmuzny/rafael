@@ -8,3 +8,6 @@ all:
   folder: /home/mirek/cron/
  knowledgetree:
   root: /home/mirek/knowledgetree/
+ sf_guard_plugin:
+  signin_form:    LoginForm
+

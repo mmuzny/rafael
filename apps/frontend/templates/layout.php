@@ -12,6 +12,7 @@
     .slide-out-div {
        padding: 20px;
         width: 250px;
+	height: 40px;
         border: #29216d 2px solid;
     }
 
@@ -100,6 +101,7 @@ background:url(<?php echo image_path('auta.png') ?>) no-repeat;
  
         <div class="content">
           <?php echo $sf_content ?>
+<p style="text-align: right; margin-top: 10px;"><?php echo link_to('Odhlásit', 'sf_guard_signout') ?></p>
         </div>
       </div>
  
@@ -111,7 +113,8 @@ background:url(<?php echo image_path('auta.png') ?>) no-repeat;
 <div class="slide-out-div tab">
             <a class="handle" href="">Content</a>
         <a href="<?php echo url_for('report/index') ?>">Přehled reportů</a><br/><br/>
-	<a href="<?php echo url_for('report/new') ?>">Přidat report</a><p></p>
+	<a href="<?php echo url_for('report/new') ?>">Přidat report</a><br/><br/>
+        <?php echo link_to('Správa uživatelů', 'sf_guard_user') ?>
         </div>     
 
 <div class="slide-out-div tab2">
