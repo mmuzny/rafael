@@ -1,6 +1,8 @@
 <?php use_stylesheet('job.css') ?>
 <?php use_stylesheet('jobs.css') ?>
 
+<?php use_stylesheet('report-mods.css') ?>
+
 <div id="jobs">
  <div class="category_vary">
   <div class="category">
@@ -17,7 +19,7 @@
       <td class="header">Název reportu:</td>
       <td class="value"><?php echo $Report->getName() ?></td>
     </tr>
-    <tr class="even">
+   <tr class="even">
       <td class="header">Soubor:</td>
       <td class="value"><?php echo $Report->getFilename() ?></td>
     </tr>
@@ -35,6 +37,8 @@
 </div>
 <hr />
 
+
 <a href="<?php echo url_for('report/edit?id='.$Report->getId()) ?>">Upravit</a>
 &nbsp;
 <a href="<?php echo url_for('report/index') ?>">Seznam</a>
+

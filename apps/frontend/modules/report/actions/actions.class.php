@@ -1,5 +1,8 @@
 <?php
 
+
+require_once ('lib/phpqrcode/phpqrcode.php');
+
 /**
  * report actions.
  *
@@ -87,6 +90,38 @@ foreach($listing as $val) {
 
   public function executeShow(sfWebRequest $request)
   {
+
+//QRCodeGeneration
+$img=sfConfig::get('sf_upload_dir').'/image.png';
+
+QRcode::png('http://192.168.3.31/knowledgetree/action.php?kt_path_info=ktcore.actions.document.view&fDocumentId=15',$img);
+
+
+list($current_width, $current_height) = getimagesize($img);
+ 
+// The x and y coordinates on the original image where we
+// will begin cropping the image
+$left = 10;
+$top = 10;
+ 
+// This will be the final size of the image (e.g. how many pixels
+// left and down we will be going)
+$size=0.65;
+$crop_width = 115;
+$crop_height = 115;
+
+$modwidth = $crop_width * $size; 
+$modheight = $crop_height * $size; 
+ 
+// Resample the image
+$canvas = imagecreatetruecolor($crop_width, $crop_height);
+$tn = imagecreatetruecolor($modwidth, $modheight);
+$current_image = imagecreatefrompng($img);
+imagecopy($canvas, $current_image, 0, 0, $left, $top, $current_width, $current_height);
+imagecopyresampled($tn, $canvas, 0, 0, 0, 0, $modwidth, $modheight, $crop_width, $crop_height); 
+imagepng($tn, $img);
+
+
     $this->Report = ReportPeer::retrieveByPk($request->getParameter('id'));
     $base_dir=sfConfig::get('app_crontab_folder', $default_value);
     $handle = fopen($base_dir.$this->Report->getFilename(),'r');
