@@ -198,9 +198,9 @@ imagepng($tn, $img);
       fclose($handle);
 
       $Rep = ReportPeer::retrieveByPk($request->getPostParameter('report[id]', null));
-
+      if(isset($Rep)){
       $filename=$base_dir.$Rep->getFilename();
-      unlink($filename);
+      unlink($filename);}
         
 } else {
        

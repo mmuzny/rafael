@@ -1,0 +1,15 @@
+#sub_header .post div a
+{
+  display: block;
+  background: url(../uploads/image.png);
+  width: 74px;
+  height: 74px;
+}
+
+#header .post
+{
+  float: right;
+  margin-top: -86px;
+  margin-right: 40px;
+}
+
