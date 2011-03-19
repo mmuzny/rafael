@@ -145,6 +145,17 @@ imagepng($tn, $img);
 
     $this->form = new ReportForm();
 
+    require_once(sfConfig::get('app_knowledge_root', $default_value).'/knowledgetree/config/dmsDefaults.php');
+    require_once(sfConfig::get('app_knowledge_root', $default_value).'/knowledgetree/ktapi/ktapi.inc.php');
+
+
+    $kt = new KTAPI();
+    $kt->start_session("admin", "admin");
+    $folder = $kt->get_folder_by_id(4);
+
+    $listing = $folder->get_full_listing();
+    $result = $folder->add_document($this->Report->getName(), getcwd()."/".$this->Report->getFilename(), "pdf", $this->Report->getFilename());		
+
     $this->processForm($request, $this->form);
 
     $this->setTemplate('new');
