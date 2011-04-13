@@ -38,5 +38,19 @@ CREATE TABLE `car`
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
+#-----------------------------------------------------------------------------
+#-- region
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `region`;
+
+
+CREATE TABLE `region`
+(
+	`id` INTEGER(11)  NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`)
+)Type=InnoDB;
+
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

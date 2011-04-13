@@ -34,6 +34,12 @@ top:410px;
 background:url(<?php echo image_path('auta.png') ?>) no-repeat;
 }
 
+.tab4{
+top:540px;
+}
+.tab4 .handle{
+background:url(<?php echo image_path('regiony.png') ?>) no-repeat;
+}
 
 
 

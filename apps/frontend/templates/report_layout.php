@@ -36,6 +36,12 @@ background:url(<?php echo image_path('auta.png') ?>) no-repeat;
 }
 
 
+.tab4{
+top:540px;
+}
+.tab4 .handle{
+background:url(<?php echo image_path('regiony.png') ?>) no-repeat;
+}
 
 
         </style>
@@ -129,5 +135,10 @@ background:url(<?php echo image_path('auta.png') ?>) no-repeat;
         <a href="<?php echo url_for('cars/new') ?>">Přidat auto</a><p><p>
         </div>     
 
+<div class="slide-out-div tab4">
+            <a class="handle" href="">Content</a>
+        <a href="<?php echo url_for('region/index') ?>">Regiony</a><br/><br/>
+        <a href="<?php echo url_for('region/new') ?>">Přidat region</a><p><p>
+        </div>     
   </body>
 </html>

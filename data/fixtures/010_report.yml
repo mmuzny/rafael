@@ -1,2 +1,56 @@
-report:
- vynosy: { name: Vynosy, filename: vynosy.pdf, exported: false }
+sfGuardUser:
+  sfGuardUser_1:
+    username: admin
+    algorithm: sha1
+    salt: 55b2e198a21943763ad5aba2c5a4fb47
+    password: 4e12894bf98ff14e0f13b43b7242e2d82d026ca5
+    created_at: '2011-03-16 21:13:18'
+    last_login: '2011-04-12 09:42:42'
+    is_active: '1'
+    is_super_admin: '1'
+Report:
+  Report_12:
+    name: '01 Struktura a frekvence výkonu '
+    filename: 01_Struktura_a_frekvence_vykonu.pdf
+  Report_14:
+    name: '02 Výnosy v čase'
+    filename: 02_Vynosy_v_case.pdf
+  Report_15:
+    name: '03 Výnosy dle typu'
+    filename: 03_Vynosy_dle_typu.pdf
+  Report_16:
+    name: '04 Náklady dle typu'
+    filename: '	04_Naklady_dle_typu.pdf'
+  Report_17:
+    name: '05 Náklady dle času'
+    filename: '	05_Naklady_dle_casu.pdf'
+  Report_18:
+    name: '06 Spotřeba materiálu dle typu'
+    filename: 06_Spotreba_materialu_dle_typu.pdf
+  Report_19:
+    name: '07 Mzdové náklady v čase'
+    filename: 07_Mzdove_naklady_v_case.pdf
+  Report_20:
+    name: '08 Personální náklady dle pracovníků'
+    filename: 08_Personalni_naklady_dle_pracovniku.pdf
+  Report_21:
+    name: '09 Pracovníci a úvazky v čase'
+    filename: 09_Pracovnici_a_uvazky_v_case.pdf
+  Report_22:
+    name: '10 Výjezdy v čase'
+    filename: 10_Vyjezdy_v_case.pdf
+  Report_23:
+    name: '11 Počet pacientů na počet výjezdů'
+    filename: 11_Pacienti_na_pocet_vyjezdu.pdf
+  Report_24:
+    name: '12 PZS'
+    filename: 12_PZS.pdf
+  Report_25:
+    name: '13 Spotřeba pohonných hmot'
+    filename: 13_Spotreba_pohonnych_hmot.pdf
+  Report_26:
+    name: '14 Najeté kilometry'
+    filename: '	14_Najete_kilometry.pdf'
+  Report_27:
+    name: '15 Auta'
+    filename: 15_Auta.pdf
